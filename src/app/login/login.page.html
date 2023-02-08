@@ -1,0 +1,24 @@
+<ion-header>
+	<ion-toolbar color="primary">
+		<ion-title>No name project </ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="form-wrapper">
+	<div class="wrap-inner">
+		<form (ngSubmit)="login()" [formGroup]="credentials">
+			<ion-item class="ion-margin-bottom item-login" fill="solid">
+				<ion-input formControlName="email" placeholder="Email" type="email" class="input"></ion-input>
+				<ion-note *ngIf="(email.dirty || email.touched) && email.errors" slot="error">Email is invalid
+				</ion-note>
+			</ion-item>
+			<ion-item class="ion-margin-bottom item-login" fill="solid">
+				<ion-input formControlName="password" placeholder="Password" type="password" class="input"></ion-input>
+				<ion-note *ngIf="(password.dirty || password.touched) && password.errors" slot="error">Password needs to be 6 characters</ion-note>
+			</ion-item>
+			<ion-button [disabled]="!credentials.valid" expand="block" type="submit">Log in</ion-button>
+			<ion-button (click)="register()" color="secondary" expand="block" type="button">Create account
+			</ion-button>
+		</form>
+	</div>
+</ion-content>
