@@ -1,24 +1,58 @@
 <ion-header>
 	<ion-toolbar color="primary">
-		<ion-title>No name project </ion-title>
+		<ion-title>No name project</ion-title>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content class="form-wrapper">
 	<div class="wrap-inner">
 		<form (ngSubmit)="login()" [formGroup]="credentials">
-			<ion-item class="ion-margin-bottom item-login" fill="solid">
-				<ion-input formControlName="email" placeholder="Email" type="email" class="input"></ion-input>
-				<ion-note *ngIf="(email.dirty || email.touched) && email.errors" slot="error">Email is invalid
-				</ion-note>
-			</ion-item>
-			<ion-item class="ion-margin-bottom item-login" fill="solid">
-				<ion-input formControlName="password" placeholder="Password" type="password" class="input"></ion-input>
-				<ion-note *ngIf="(password.dirty || password.touched) && password.errors" slot="error">Password needs to be 6 characters</ion-note>
-			</ion-item>
-			<ion-button [disabled]="!credentials.valid" expand="block" type="submit">Log in</ion-button>
-			<ion-button (click)="register()" color="secondary" expand="block" type="button">Create account
-			</ion-button>
+
+			<ng-container [ngSwitch]="page">
+
+				<ng-template ngSwitchCase="login">
+					Login
+					<ion-item class="ion-margin-bottom item-login" fill="solid">
+						<ion-input class="input" formControlName="email" placeholder="Email" type="email"></ion-input>
+						<ion-note *ngIf="(email.dirty || email.touched) && email.errors" slot="error">Email is invalid
+						</ion-note>
+					</ion-item>
+					<ion-item class="ion-margin-bottom item-login" fill="solid">
+						<ion-input class="input" formControlName="password" placeholder="Password" type="password"></ion-input>
+						<ion-note *ngIf="(password.dirty || password.touched) && password.errors" slot="error">Password needs to be 6 characters</ion-note>
+					</ion-item>
+					<ion-button [disabled]="!credentials.valid" expand="block" type="submit">Log in</ion-button>
+					<div (click)="page = 'signUp'" class="form-row tap-pane">Non hai un account?<span class="lbl-part">Registrati</span>
+					</div>
+				</ng-template>
+				<ng-template ngSwitchCase="signUp">
+					Crea account
+					<ion-item class="ion-margin-bottom item-login" fill="solid">
+						<ion-input class="input" formControlName="email" placeholder="Email" type="email"></ion-input>
+						<ion-note *ngIf="(email.dirty || email.touched) && email.errors" slot="error">Email is invalid
+						</ion-note>
+					</ion-item>
+					<ion-item class="ion-margin-bottom item-login" fill="solid">
+						<ion-input class="input" formControlName="password" placeholder="Password" type="password"></ion-input>
+						<ion-note *ngIf="(password.dirty || password.touched) && password.errors" slot="error">Password needs to be 6 characters</ion-note>
+					</ion-item>
+					<ion-button (click)="register()" color="secondary" expand="block" type="button">Create account
+					</ion-button>
+					<div (click)="page = 'login'" class="form-row tap-pane">Hai gia un account?<span class="lbl-part">Accedi</span>
+					</div>
+				</ng-template>
+
+				<ng-template ngSwitchCase="loading">
+
+					<div class="form-row title">
+						<ion-spinner></ion-spinner>
+						Attendere
+					</div>
+
+				</ng-template>
+			</ng-container>
+
+
 		</form>
 	</div>
 </ion-content>

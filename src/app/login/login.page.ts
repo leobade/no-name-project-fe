@@ -9,8 +9,33 @@ import {AppComponent} from "src/app/app.component";
   selector: 'app-login', templateUrl: './login.page.html', styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit{
+
   credentials: FormGroup | undefined;
   private: any;
+  page: string = "login";
+  username: string;
+  usernameError: string;
+  _password: string;
+  passwordError: string;
+  confirmPassword: string;
+  confirmPasswordError: string;
+  organizationName: string;
+  organizationNameError: string;
+  acceptPrivacy: boolean;
+  acceptPrivacyError: string;
+
+  selectedLanguage: string; // in english
+  selectedLanguageNotEn: string; // in "that" language
+  selectedLanguageError: string;
+  selectedTimezone: string;
+  selectedTimezoneError: string;
+
+  showPassword: boolean;
+
+  activationToast: any;
+  checkActivationToast: boolean;
+  timeoutToast: any;
+
 
   constructor(private fb: FormBuilder, private loadingController: LoadingController, private alertController: AlertController, private authService: AuthService, private router: Router, private appComponent: AppComponent,){
   }
